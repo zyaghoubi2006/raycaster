@@ -1,5 +1,6 @@
 #include<raylib.h>
 #include<math.h>
+#include<stdio.h>
 #define MAP_W 10
 #define MAP_H 10
 #define TILE_SIZE 64
@@ -18,6 +19,31 @@ int world_map[MAP_H][MAP_W]={
     {1,1,1,1,1,1,1,1,1,1}
 
 };
+
+void SaveMap(const char *filename) {
+    FILE *file = fopen(filename, "wb");
+    if (!file) {
+        return;
+    }
+
+    fwrite(world_map, sizeof(int), MAP_W * MAP_H, file);
+    fclose(file);
+}
+
+void LoadMap(const char *filename) {
+    FILE *file = fopen(filename, "rb");
+    if (!file) {
+        printf("No saved map found!\n");
+        return;
+    }
+
+    fread(world_map, sizeof(int), MAP_W * MAP_H, file);
+    fclose(file);
+
+    printf("Map loaded successfully.\n");
+}
+
+
 typedef struct{
     Vector2 pos;
     Vector2 dir;
@@ -138,6 +164,16 @@ int main(){
 
             } else {
                 gameState = STATE_PLAY_MODE;
+    }
+}
+
+     if (gameState == STATE_EDIT_MODE) {
+        if (IsKeyPressed(KEY_S)) {
+        SaveMap("map.bin");
+    }
+
+    if (IsKeyPressed(KEY_L)) {
+        LoadMap("map.bin");
     }
 }
         // +++++++++ rendering ++++++++++++
