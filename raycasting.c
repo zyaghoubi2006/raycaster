@@ -34,7 +34,7 @@ int main(){
     const int screenwidth=800;
     const int screenheight=700;
 
-    InitWindow(screenwidth,screenheight,"Phase1-step0");
+    InitWindow(screenwidth,screenheight,"Raycasting");
     SetTargetFPS(60);
 
     Player player;
@@ -211,10 +211,36 @@ int main(){
             DrawLine(x, drawStart, x, drawEnd, wallColor);
         }
 
+        // ++++ mini map ++++
+        int miniMapSize = 150;
+        int cellSize = miniMapSize / MAP_W > 10 ? miniMapSize / MAP_W : 10;
 
-        
+        int miniMapX = screenwidth - miniMapSize - 10;
+        int miniMapY = 10;
 
-          
+
+        DrawRectangle(miniMapX, miniMapY, miniMapSize, miniMapSize, GRAY);
+
+        DrawText("Camera view - Press M for map (ESC to exit)", 10, 10, 20, DARKGRAY);
+
+
+        for (int y = 0; y < MAP_H; y++) {
+            for (int x = 0; x < MAP_W; x++) {
+                if (world_map[y][x] > 0) {
+                    DrawRectangle(miniMapX + x * cellSize,miniMapY + y * cellSize,cellSize - 1,cellSize - 1,DARKGRAY );
+        }
+    }
+}
+
+// ++++ player pos on map ++++
+int playerMapX = miniMapX + (int)(player.pos.x * cellSize);
+int playerMapY = miniMapY + (int)(player.pos.y * cellSize);
+
+DrawCircle(playerMapX, playerMapY, 4, RED);
+
+float dirLength = 15.0f;
+DrawLine(playerMapX, playerMapY,playerMapX + (int)(player.dir.x * dirLength),playerMapY + (int)(player.dir.y * dirLength),GREEN);
+
 
         EndDrawing();
     }
