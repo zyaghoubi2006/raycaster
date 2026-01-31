@@ -40,6 +40,7 @@ int main(){
     Player player;
     player.pos = (Vector2){3.5f,3.5f};
     player.dir = (Vector2){1.0f,0.0f};
+    player.plane = (Vector2){0.0,0.66f};
 
     const float move_speed = 3.0f;
     const float rot_speed = 3.0f;
@@ -124,6 +125,10 @@ int main(){
         
         BeginDrawing();
         ClearBackground(BLUE);
+
+        // ++++ floor and ceiling ++++
+        DrawRectangle(0, 0, screenwidth, screenheight/2, SKYBLUE);
+        DrawRectangle(0, screenheight/2, screenwidth, screenheight/2, DARKBROWN);
 
         for (int x = 0; x < screenwidth; x++) {
             float cameraX = 2.0 * x / screenwidth - 1.0;
