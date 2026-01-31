@@ -178,9 +178,33 @@ int main(){
                         hit = 1;
                     }
                 } else {
-                    hit = 1; // خارج از نقشه
+                    hit = 1; 
                 }
             }
+
+            // +++ distance calculation and fish eye correction +++
+            double perpWallDist;
+            if (side == 0) {
+                perpWallDist = sideDistX - deltaDistX;
+            } else {
+                perpWallDist = sideDistY - deltaDistY;
+            }
+            
+            // ++++ wall ++++
+            int lineHeight = (int)(screenheight / perpWallDist);
+            int drawStart = -lineHeight / 2 + screenheight / 2;
+            int drawEnd = lineHeight / 2 + screenheight / 2;
+            
+            if (drawStart < 0) drawStart = 0;
+            if (drawEnd >= screenheight) drawEnd = screenheight - 1;
+            
+            Color wallColor = DARKGRAY;
+            if (side == 1) {
+                wallColor = GRAY; 
+            }
+            
+            DrawLine(x, drawStart, x, drawEnd, wallColor);
+        }
 
 
         
