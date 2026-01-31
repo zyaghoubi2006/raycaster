@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <header class="box-header">
+        <p><img src="picture/ray1.png" alt="raypic">
+            RayMaze</p>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="devlog.html">document</a></li>
+                <li><a href="gallery.html">gallery</a></li>
+            </ul>
+        </nav>
+
+    </header>
+    <hr>
+    
+    <section class="docs">
+    <h1>Technical Documentation</h1>
+    <p class="docs-intro">
+        This section describes the core technical concepts behind RayMaze,
+        including rendering logic, algorithms, and development challenges.
+    </p>
+
+    <article class="doc-article">
+        <h2>Raycasting Engine Overview</h2>
+        <p>
+            Raycasting is a rendering technique used to create a 3D perspective from a 2D
+            map. In early computer systems, real-time 3D engines were not computationally
+            feasible, making raycasting one of the first practical solutions for simulating
+            three-dimensional environments.
+        </p>
+        <p>
+            Raycasting works by sending virtual rays from the player's position across a 2D grid-based map. Each ray travels until it hits a wall, and its distance is calculated.
+            This distance is then converted into a vertical wall height on the screen: farther walls appear shorter and darker. By drawing vertical columns corresponding to each ray side by side, a basic 3D scene is constructed from the 2D map.
+        </p>
+    </article>
+
+    <article class="doc-article">
+        <h2>Fisheye Effect and Perspective Correction</h2>
+        <p>
+        I encountered a problem early in the project, the walls were curved.this is a problem which is called fish eye effect . This effect occurs because rays cast toward the
+        edges of the field of view strike walls at oblique angles, resulting in longer
+        measured distances and causing walls to appear curved or stretched.
+        </p>
+        <p>
+            To fix this, I used the perpendicular distance to the viewing plane instead of the raw ray distance.This correction is achieved by applying a cosine
+            factor based on the ray’s angle relative to the player's viewing direction.
+            As a result, wall distances are calculated uniformly across the entire screen,
+            eliminating distortion and producing a natural, realistic 3D perspective.
+        </p>
+    </article>
+
+    <article class="doc-article">
+        <h2>Memory Management and Performance : Engineering Within Limits</h2>
+        <p>
+            In an era where modern game engines consume gigabytes of RAM,  RayMaze engine achieves immersive 3D rendering using just kilobytes of memory.
+            The engine proves that performance isn't about raw power . Nevertheless it's about intelligent resource management.
+        </p>
+    </article>
+</section>
+
+<footer class="footer">
+    <p>Open Source License 2026 ©</p>
+    <p>Design and Develop : Zeinab Yaghoubi - 403462073</p>
+</footer>
+    
+</body>
+</html>
